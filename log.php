@@ -1,0 +1,18 @@
+﻿<?php
+if(file_exists("error_log")){
+	unlink("error_log");//删除错误日志
+}
+$name=$_GET['nid'];
+$met=$_GET['method'];
+date_default_timezone_set('Asia/Shanghai');
+$filename="./logs/log.txt";
+if(!file_exists($filename)){
+	file_put_contents($filename,"");
+}
+if(strlen(file_get_contents($filename))>=40000){
+	file_put_contents($filename,"");
+}
+$handle=fopen($filename,"a+");
+$str=fwrite($handle,$name."-----[".date('Y-m-d')."]-[".date("h:i:sa")."]-[METHOD:$met]\n");
+fclose($handle);
+?>
